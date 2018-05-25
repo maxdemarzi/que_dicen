@@ -42,4 +42,8 @@ For Spanish Ingestion:
 If using Windows you must escape the slashes like so:
 
     CALL com.maxdemarzi.es.ingest('C:\\Users\\Max\\Downloads\\GitHub\\que_dicen\\data\es_sample.txt');
-        
+
+It can also handle PDF documents:
+
+    CALL com.maxdemarzi.en.ingest('data/en_sample.pdf');
+    CALL com.maxdemarzi.es.ingest('data/es_sample.pdf');
