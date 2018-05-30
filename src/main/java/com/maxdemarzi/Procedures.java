@@ -25,15 +25,6 @@ public class Procedures {
     @Context
     public Log log;
 
-
-    /*
-    Q1: Most common skills across Industry grouped by location
-    MATCH (location:Location)<-[:IN_LOCATION]-(candidate)-[:HAS_SKILL]->(skill),
-          (candidate)-[:HAS_SUB_INDUSTRY]->(sub)-[:IN_INDUSTRY]->(industry)
-    RETURN location.city, location.state,  industry.name, skill.name, COUNT(*)
-    ORDER BY industry.name, location.state, location.city, COUNT(*) DESC;
-     */
-
     @Procedure(name = "com.maxdemarzi.en.ingest", mode = Mode.WRITE)
     @Description("CALL com.maxdemarzi.en.ingest")
     public Stream<StringResult> IngestEnglishDocument(@Name("file") String file) throws InterruptedException {
