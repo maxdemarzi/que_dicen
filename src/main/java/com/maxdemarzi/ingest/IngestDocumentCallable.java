@@ -55,7 +55,7 @@ public class IngestDocumentCallable implements Callable {
             parser.parse(stream, handler, metadata);
             text = handler.toString();
         } catch (Exception e) {
-         log.error(e.getMessage());
+            log.error(e.getMessage());
         }
 
         Map<String, Set<String>> recognized;
@@ -73,6 +73,8 @@ public class IngestDocumentCallable implements Callable {
         try(Transaction tx = db.beginTx() ) {
             Node document = db.createNode(Labels.Document);
             document.setProperty("text", text);
+            document.setProperty("file", file);
+            document.setProperty("language", language);
             nodes.add(document);
 
             // Connect the document to each entity found in each group of entities
