@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonMap;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class IngestDocumentTest {
 
@@ -23,16 +23,16 @@ public class IngestDocumentTest {
     public void testIngest() throws Exception {
         HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), SCHEMA);
         HTTP.Response response = HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), QUERY);
-        String results = response.get("results").get(0).get("data").get(0).get("row").get(0).asText();
-        assertTrue(results.startsWith("Document ingested in"));
+        assertEquals(5, response.get("results").get(0).get("data").get(0).get("row").get(0).size());
+        assertEquals(4, response.get("results").get(0).get("data").get(0).get("row").get(1).size());
     }
 
     @Test
     public void testSpanishIngest() throws Exception {
         HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), SCHEMA);
         HTTP.Response response = HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), QUERY2);
-        String results = response.get("results").get(0).get("data").get(0).get("row").get(0).asText();
-        assertTrue(results.startsWith("Spanish Document ingested in"));
+        assertEquals(2, response.get("results").get(0).get("data").get(0).get("row").get(0).size());
+        assertEquals(1, response.get("results").get(0).get("data").get(0).get("row").get(1).size());
     }
 
     private static final Map SCHEMA =
